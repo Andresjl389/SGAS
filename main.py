@@ -1,24 +1,24 @@
 import uvicorn
-from Infraestructura.Configuracion.configuracion import engine, SessionLocal, Base
+from starlette.responses import JSONResponse
+from starlette.routing import Route
+from Infraestructura.Configuracion.configuracion import engine, Base
+from Presentacion.Rutas.rutas import app
 
-async def app(scope, receive, send):
-    assert scope['type'] == 'http'
+# Crear una ruta para manejar peticiones a la raíz '/'
 
-    body = f'Received {scope["method"]} request to {scope["path"]}'
-    await send({
-        'type': 'http.response.start',
-        'status': 200,
-        'headers': [
-            [b'content-type', b'text/plain'],
-        ]
-    })
-    await send({
-        'type': 'http.response.body',
-        'body': body.encode('utf-8'),
-    })
+
+
+
+# Definir las rutas
+
+# Aplicación que usará estas rutas
+
+rutas = app
 
 if __name__ == "__main__":
+    # Inicializar la base de datos antes de correr el servidor
     Base.metadata.create_all(bind=engine)
     print("Base de datos inicializada correctamente.")
-
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
+    
+    # Correr el servidor Uvicorn
+    uvicorn.run("Presentacion.Rutas.rutas:app", host="127.0.0.1", port=8000, log_level="info", reload=True)
