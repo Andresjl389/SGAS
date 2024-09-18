@@ -11,5 +11,5 @@ class Aula(BaseEntity, table=True):
     id_estado_aula: UUID = Field(default=None, nullable=False, foreign_key="estado_aula.id")
     id_tipo_aula: UUID = Field(default=None, nullable=False, foreign_key="tipo_aula.id")
 
-    estado_aula: Optional[Estado_Aula] = Relationship(back_populates="aula")
-    tipo_aula: Optional[Tipo_Aula] = Relationship(back_populates="aula")
+    estado_aula: Optional[Estado_Aula] = Relationship(back_populates="aulas")
+    tipo_aula: Optional[Tipo_Aula] = Relationship(back_populates="aulas")
