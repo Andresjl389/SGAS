@@ -3,6 +3,7 @@ from starlette.responses import JSONResponse
 from starlette.routing import Route
 from Infraestructura.Configuracion.configuracion import engine, Base
 from Presentacion.Rutas.rutas import app
+import os
 
 # Crear una ruta para manejar peticiones a la raíz '/'
 
@@ -21,4 +22,5 @@ if __name__ == "__main__":
     print("Base de datos inicializada correctamente.")
     
     # Correr el servidor Uvicorn
-    uvicorn.run("Presentacion.Rutas.rutas:app", host="127.0.0.1", port=8000, log_level="info", reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("Presentacion.Rutas.rutas:app", host="0.0.0.0", port=port, log_level="info", reload=True)
