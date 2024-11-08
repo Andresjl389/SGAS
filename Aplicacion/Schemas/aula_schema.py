@@ -9,6 +9,8 @@ class AulaSchema(BaseModel):
     id_tipo_aula: UUID
 
     class Config:
+        from_attributes = True
+        json_encoders = {UUID: str}
         json_schema_extra = {
             "example":{
                 "nombre": "A401",

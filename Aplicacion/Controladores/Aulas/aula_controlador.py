@@ -1,22 +1,25 @@
-from pydantic import ValidationError
-from starlette.responses import JSONResponse
-from Aplicacion.Casos_uso.Aulas.Aulas_consultas import CrearAulaCasoUso
+from Aplicacion.Casos_uso.Aulas.aulas_use_case import CrearAulaCasoUso
 from Aplicacion.Schemas.aula_schema import AulaSchema
-from Dominio.Repositorios.Aulas.aula_repositorio import AulaRepositorio
+from Infraestructura.Configuracion.configuracion import SessionLocal
+from Dominio.Entidades.Aulas.aula import Aula
+from Dominio.Repositorios.repository import GenericRepository
+from starlette.requests import Request
+from starlette.responses import JSONResponse
+from sqlalchemy.orm import Session
 
-
-class AulaControlador():
-    def __init__(self):
-        self.repositorio_aula = AulaRepositorio()
-        self.crear_aula_caso = CrearAulaCasoUso(self.repositorio_aula)
-
-    async def crear_aula(self, request):
-        try:
-            datos = await request.json()
-            print("datos: ",datos)
-            self.crear_aula_caso.ejecutar(datos)
-            return JSONResponse({"mensaje": "Aula creada exitosamente"}, status_code=201)
-        except ValidationError as e:
-            return JSONResponse({"error": e.errors()}, status_code=400)
-        except Exception as e:
-            return JSONResponse({"error": str(e)}, status_code=500)
+class AulaControlador:
+    def __init__(self, session: Session):
+        repositoy = GenericRepository(Aula)
+        self.use_case = CrearAulaCasoUso(repositoy, session)
+    
+    async def create(self, request: Request):
+        data = await request.json()
+        aula_data = AulaSchema(**data)
+        new_aula = self.use_case.create(aula_data)
+        print(aula_data.nombre)
+        return JSONResponse(content={"message": "Aula creada", "data": aula_data.nombre}, status_code=201)
+    
+    async def get(self, request: Request):
+        aulas = self.use_case.get_all()
+        print("AULAS: ",aulas)
+        return JSONResponse(content={"data": aulas}, status_code=200)

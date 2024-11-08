@@ -23,4 +23,5 @@ if __name__ == "__main__":
     
     # Correr el servidor Uvicorn
     port = int(os.environ.get("PORT", 8000))
+    print("puerto", port)
     uvicorn.run("Presentacion.Rutas.rutas:app", host="0.0.0.0", port=port, log_level="info", reload=True)
