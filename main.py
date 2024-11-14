@@ -5,14 +5,6 @@ from Infraestructura.Configuracion.configuracion import engine, Base
 from Presentacion.Rutas.rutas import app
 import os
 
-# Crear una ruta para manejar peticiones a la raíz '/'
-
-
-
-
-# Definir las rutas
-
-# Aplicación que usará estas rutas
 
 rutas = app
 
