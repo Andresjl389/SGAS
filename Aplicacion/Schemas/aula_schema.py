@@ -1,6 +1,6 @@
 from uuid import UUID
 from pydantic import BaseModel, Field
-
+from typing import Optional
 
 class AulaSchema(BaseModel):
     nombre: str
@@ -19,3 +19,13 @@ class AulaSchema(BaseModel):
                 "id_tipo_aula": "95406388-6056-455a-8775-1959b932b"
             }
         }
+
+class UpdateAulaSchema(BaseModel):
+    nombre: Optional[str] = None
+    capacidad: Optional[int] = None
+    id_estado_aula: Optional[UUID] = None
+    id_tipo_aula: Optional[UUID] = None
+
+    class Config:
+        from_attributes = True
+        json_encoders = {UUID: str}
