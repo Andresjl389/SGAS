@@ -6,6 +6,7 @@ from Aplicacion.Controladores.Tipo_de_aula.tipo_de_aula_controlador import TipoD
 
 from Infraestructura.Configuracion.configuracion import SessionLocal
 from Aplicacion.Controladores.Estado_de_aula.estado_aula_controlador import EstadoAulaControlador
+from starlette.middleware.cors import CORSMiddleware
 
 estado_aula_controlador = EstadoAulaControlador(SessionLocal())
 
@@ -32,3 +33,12 @@ routes =  [
 ]
 
 app = Starlette(routes=routes)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite todos los orígenes. Cambia esto si quieres restringir los orígenes
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos HTTP
+    allow_headers=["*"]   # Permite todas las cabeceras
+)
+
