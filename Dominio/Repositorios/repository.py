@@ -1,5 +1,4 @@
-
-from typing import List, TypeVar, Generic
+from typing import List, TypeVar, Generic, Dict
 from sqlalchemy.orm import Session
 from Infraestructura.Configuracion.configuracion import SessionLocal
 from Dominio.Entidades.Aulas.aula import Aula
@@ -71,4 +70,51 @@ class GenericRepository(Generic[T]):
             instances = query.all()
             for instance in instances:
                 session.delete(instance)
+            session.commit()    
+    def get_all_aulas_with_relations(self) -> List[Dict]:
+        with self.__get_session() as session:
+            aulas = session.query(Aula)\
+                .join(Estado_Aula)\
+                .join(Tipo_Aula)\
+                .all()
+            
+            return [self._format_aula_data(aula, session) for aula in aulas]
+
+    def _format_aula_data(self, aula: Aula, session: Session) -> Dict:
+        return {
+            "id": str(aula.id),
+            "nombre": aula.nombre,
+            "capacidad": aula.capacidad,
+            "estado_aula": {
+                "id": str(aula.id_estado_aula),
+                "nombre": session.get(Estado_Aula, aula.id_estado_aula).nombre
+            },
+            "tipo_aula": {
+                "id": str(aula.id_tipo_aula),
+                "nombre": session.get(Tipo_Aula, aula.id_tipo_aula).nombre
+            }
+        }
+
+    def update_aula(self, aula_id: str, data: dict) -> Dict:
+        with self.__get_session() as session:
+            aula = session.query(Aula).filter_by(id=aula_id).first()
+            if not aula:
+                return None
+            
+            for key, value in data.items():
+                if value is not None:
+                    setattr(aula, key, value)
+            
             session.commit()
+            return self._format_aula_data(aula, session)
+
+    def delete_aula(self, aula_id: str) -> Dict:
+        with self.__get_session() as session:
+            aula = session.query(Aula).filter_by(id=aula_id).first()
+            if not aula:
+                return None
+            
+            aula_data = self._format_aula_data(aula, session)
+            session.delete(aula)
+            session.commit()
+            return aula_data
