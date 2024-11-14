@@ -11,6 +11,7 @@ from Dominio.Entidades.Usuario.roles import Roles
 from Dominio.Entidades.Usuario.estado_usuario import Estado_Usuario
 from Dominio.Entidades.Sesion.sesion import Sesion
 from Dominio.Entidades.Reserva.estado_reserva import Estado_Reserva
+from Dominio.Entidades.Reserva.tipo_reserva import Tipo_Reserva
 from Dominio.Entidades.Reserva.reserva import Reserva
 from Dominio.Entidades.Registro.solicitud_registro import Solicitud_Registro
 from Dominio.Entidades.Registro.estado_solicitud_registro import Estado_Solicitud_Registro
