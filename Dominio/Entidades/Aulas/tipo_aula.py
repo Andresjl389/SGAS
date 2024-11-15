@@ -5,8 +5,7 @@ from sqlmodel import Field, Relationship
 if TYPE_CHECKING:
     from Dominio.Entidades.Aulas.aula import Aula
 
-    
-class Tipo_Aula(BaseEntity, table=True):
+class Tipo_Aula(BaseEntity, table=True):  # Heredando de BaseEntity
     nombre: str = Field(default=None, nullable=False, max_length=50)
 
     aulas: List["Aula"] = Relationship(back_populates="tipo_aula")
