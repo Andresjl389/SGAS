@@ -1,0 +1,23 @@
+[33m3f9fe2f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m Merge branch 'main' into develop
+[33me514ecc[m Merge pull request #11 from Andresjl389/firstcrud
+[33me961e9c[m[33m ([m[1;31morigin/firstcrud[m[33m, [m[1;32mfirstcrud[m[33m)[m add and fix: :pencil2: se agrego CRUD para tipos de reservas y se corrigieron algunos errores
+[33m885b1b8[m fix: :pencil2: correccion estructura
+[33me7c10d2[m Merge pull request #10 from Andresjl389/develop
+[33mb687663[m Merge pull request #9 from Andresjl389/develop
+[33m68ccee0[m feat: add entity
+[33mace7d62[m chore: fix the conflicts of the pr
+[33m1d4fe71[m feat: :sparkles: Create CRUD
+[33m71e30d4[m Merge pull request #8 from Andresjl389/develop
+[33me67d217[m feat: add cors
+[33m7727a41[m Merge pull request #6 from Andresjl389/develop
+[33md74b2fe[m feat: Integración de controladores, repositorios y casos de uso en endpoints
+[33ma5c7f82[m Merge pull request #5 from Andresjl389/develop
+[33mb79a82c[m fix: enviroment
+[33m59e514b[m Merge pull request #4 from Andresjl389/develop
+[33mfa64369[m[33m ([m[1;32mmain[m[33m)[m fix: enviroment
+[33ma08abda[m Merge pull request #3 from Andresjl389/develop
+[33mf6df065[m Merge pull request #2 from Andresjl389/main
+[33m002abca[m feat: implementar servidor con endpoints y agregar endpoint base tipo POST
+[33m22cf69e[m Merge pull request #1 from Andresjl389/develop
+[33m37bdcd5[m feat: Create migrations and entities
+[33m7d64cbf[m Implement initial project architecture: setup layers and core structure
