@@ -4,10 +4,9 @@ from starlette.routing import Route
 from Aplicacion.Controladores.Aulas.aula_controlador import AulaControlador
 from Aplicacion.Controladores.Tipo_de_aula.tipo_de_aula_controlador import TipoDeAulaControlador
 from Infraestructura.Configuracion.configuracion import SessionLocal
-from starlette.middleware.cors import CORSMiddleware
 from Aplicacion.Controladores.Estado_de_aula.estado_aula_controlador import EstadoAulaControlador
 from Aplicacion.Controladores.Tipo_reserva.tipo_reserva_controlador import TipoReservaControlador
-
+from starlette.middleware.cors import CORSMiddleware
 
 estado_aula_controlador = EstadoAulaControlador(SessionLocal())
 
