@@ -1,3 +1,4 @@
+
 from typing import TYPE_CHECKING, List
 from Dominio.Entidades.Base.base_entity import BaseEntity
 from sqlmodel import Field, Relationship

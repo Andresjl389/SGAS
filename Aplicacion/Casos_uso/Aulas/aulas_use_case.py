@@ -1,9 +1,7 @@
 from sqlmodel import Session
-from Aplicacion.Schemas.aula_schema import AulaSchema
+from Aplicacion.Schemas.aula_schema import AulaSchema, UpdateAulaSchema
 from Dominio.Entidades.Aulas.aula import Aula
 from Dominio.Repositorios.repository import GenericRepository
-from Infraestructura.Configuracion.configuracion import SessionLocal
-
 
 class CrearAulaCasoUso():
     def __init__(self, repository: GenericRepository, session: Session):
@@ -11,22 +9,21 @@ class CrearAulaCasoUso():
         self.session = session
 
     def create(self, data: AulaSchema) -> Aula:
-        print("DATA CASO DE USO", data)
         aula = Aula(**data.dict())
-        self.repository.add(aula)
-        return aula
+        return self.repository.add(aula)
 
-    def get_all(self) -> list[Aula]:
-        aulas = self.repository.get_all()
-        aulas_data = [
-            {
-                "id": str(aula.id),
-                "id_estado_aula": str(aula.id_estado_aula),
-                "capacidad": aula.capacidad,
-                "nombre": aula.nombre,
-                "id_tipo_aula": str(aula.id_tipo_aula)
-            }
-            for aula in aulas
-        ]
+    def get_all(self) -> list[dict]:
+        return self.repository.get_all_aulas_with_relations()
 
-        return aulas_data
+    def actualizar_aula(self, aula_id: str, data: UpdateAulaSchema) -> dict:
+        update_data = data.dict(exclude_unset=True)
+        resultado = self.repository.update_aula(aula_id, update_data)
+        if not resultado:
+            raise ValueError("Aula no encontrada")
+        return resultado
+
+    def eliminar_aula(self, aula_id: str) -> dict:
+        resultado = self.repository.delete_aula(aula_id)
+        if not resultado:
+            raise ValueError("Aula no encontrada")
+        return resultado
