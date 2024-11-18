@@ -6,32 +6,36 @@ from pathlib import Path
 from dotenv import load_dotenv
 from sqlalchemy.ext.declarative import declarative_base
 
+# Cargar el archivo .env
 env_path = Path(__file__).resolve().parent.parent.parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
+# Configuración de Pydantic Settings
 class Settings(BaseSettings):
-    db_host: str = os.getenv("DB_HOST")
-    db_user: str = os.getenv("DB_USER")
-    db_password: str = os.getenv("DB_PASSWORD")
-    db_engine: str = os.getenv("DB_ENGINE")
-    db_name: str = os.getenv("DB_NAME")
-    
+    db_host: str
+    db_user: str
+    db_password: str
+    db_engine: str
+    db_name: str
+    jwt_secret_key: str
+    jwt_algorithm: str
+    jwt_expiration_time: int
 
     class Config:
         env_file = str(env_path)
 
+# Instancia de configuración
 settings = Settings()
 
+# Configuración de la base de datos
 URL = f"{settings.db_engine}://{settings.db_user}:{settings.db_password}@{settings.db_host}/{settings.db_name}"
-
 engine = create_engine(URL)
-
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 Base = declarative_base()
 
-print(settings.db_host)
-print(settings.db_user)
-print(settings.db_password)
-print(settings.db_engine)
-print(settings.db_name)
+# Imprimir valores para depuración
+print("Base de Datos:", settings.db_host)
+print("Usuario:", settings.db_user)
+print("Clave JWT:", settings.jwt_secret_key)
+print("Algoritmo JWT:", settings.jwt_algorithm)
+print("Expiración JWT:", settings.jwt_expiration_time)

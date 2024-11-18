@@ -14,7 +14,7 @@ class TipoDeAulaSchema(BaseModel):
     nombre: str
 
     class Config:
-        orm_mode = True
+        # orm_mode = True
         arbitrary_types_allowed = True
         from_attributes = True
 
