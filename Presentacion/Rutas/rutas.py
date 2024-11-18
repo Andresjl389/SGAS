@@ -7,9 +7,10 @@ from Infraestructura.Configuracion.configuracion import SessionLocal
 from Aplicacion.Controladores.Estado_de_aula.estado_aula_controlador import EstadoAulaControlador
 from Aplicacion.Controladores.Tipo_reserva.tipo_reserva_controlador import TipoReservaControlador
 from starlette.middleware.cors import CORSMiddleware
+from Aplicacion.Controladores.Autenticacion.autenticacion_controlador import AutenticacionControlador
 
 estado_aula_controlador = EstadoAulaControlador(SessionLocal())
-
+auth_controlador = AutenticacionControlador(SessionLocal())
 tipo_de_aula_controlador = TipoDeAulaControlador(SessionLocal())
 aula_controlador = AulaControlador(SessionLocal())
 tipo_reserva_controlador = TipoReservaControlador(SessionLocal())
@@ -35,6 +36,10 @@ routes =  [
     Route("/tipos_reserva/crear", tipo_reserva_controlador.crear_tipo_reserva, methods=["POST"]),
     Route("/tipos_reserva/{id}", tipo_reserva_controlador.actualizar_tipo_reserva, methods=["PUT"]),
     Route("/tipos_reserva/{id}", tipo_reserva_controlador.eliminar_tipo_reserva, methods=["DELETE"]),
+
+    Route("/auth/register", auth_controlador.register, methods=["POST"]),
+
+
 ]
 
 app = Starlette(routes=routes)
