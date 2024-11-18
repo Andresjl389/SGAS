@@ -25,4 +25,4 @@ class Reserva(BaseEntity, table=True):
     usuario: Optional[Usuario] = Relationship(back_populates="reserva")
     aula: Optional[Aula] = Relationship(back_populates="reserva")
     estado_reserva: Optional[Estado_Reserva] = Relationship(back_populates="reserva")
-    tipo_reserva: Optional["Tipo_Reserva"] = Relationship(back_populates="reservas")
+    tipo_reserva: Optional[Tipo_Reserva] = Relationship(back_populates="reserva")

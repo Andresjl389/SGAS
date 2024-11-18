@@ -12,4 +12,4 @@ class Notificaciones(BaseEntity, table=True):
     fecha_envio: datetime = Field(default_factory=datetime.now)
     id_usuario: UUID = Field(default=None, nullable=False, foreign_key="usuario.id")
 
-    usuario: Optional["Usuario"] = Relationship(back_populates="notificaciones")
+    usuario: Optional[Usuario] = Relationship(back_populates="notificaciones")
